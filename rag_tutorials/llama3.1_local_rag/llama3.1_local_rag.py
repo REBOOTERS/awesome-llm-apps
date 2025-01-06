@@ -5,6 +5,10 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OllamaEmbeddings
 
+import chromadb
+
+chromadb.api.client.SharedSystemClient.clear_system_cache()
+
 st.title("Chat with Webpage 🌐")
 st.caption("This app allows you to chat with a webpage using local llama3 and RAG")
 
@@ -19,13 +23,13 @@ if webpage_url:
     splits = text_splitter.split_documents(docs)
 
     # 2. Create Ollama embeddings and vector store
-    embeddings = OllamaEmbeddings(model="llama3.1")
+    embeddings = OllamaEmbeddings(model="nomic-embed-text")
     vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 
     # 3. Call Ollama Llama3 model
     def ollama_llm(question, context):
         formatted_prompt = f"Question: {question}\n\nContext: {context}"
-        response = ollama.chat(model='llama3.1', messages=[{'role': 'user', 'content': formatted_prompt}])
+        response = ollama.chat(model='llama3.2', messages=[{'role': 'user', 'content': formatted_prompt}])
         return response['message']['content']
 
     # 4. RAG Setup
