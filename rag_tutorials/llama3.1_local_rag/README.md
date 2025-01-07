@@ -33,3 +33,6 @@ streamlit run llama3.1_local_rag.py
 - The Llama-3.1 model is called to generate an answer using the retrieved context.
 - The app displays the answer to the user's question.
 
+### FAQ  
+
+[Chroma安装报错的解决办法](https://zhuanlan.zhihu.com/p/3390937287)
